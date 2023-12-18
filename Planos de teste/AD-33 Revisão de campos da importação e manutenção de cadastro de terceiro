@@ -1,0 +1,42 @@
+validar permissões -Permissão marcada para a rotina antiga, precisa ser marcada automaticamente na nova permissão criada
+validar listagem
+validar detalhamento
+validar criação
+    Dados iniciais
+        - Campo terceiro: 
+        - Campo Número documento: Número da nota fiscal a ser registrada no sistema. No momento atual a mesma apenas valida numeração do documento, porém com o novo campo série, sistema deverá validar os dois campos. E caso já possua numeração no sistema apresentará mensagem ‘Número de nota fiscal e série já existente para essa entidade’.
+        - Campo Série: Adicionar campo série, essa informação constará ao escriturar nota em movimentações fiscais sem precisar preencher mais manualmente na escrituração (campo ficará bloqueado para edição).
+        - Campo Operação: Somente as operações que possuírem classificação fiscal configuradas serão listadas no campo (ex. comercial > saídas > pedido de venda). No filtro de operações, são listadas as operações vinculadas à funcionalidade: Saída de produtos conforme mostra o banco de dados.
+        - Campo Tipo de documento: Virá por padrão “Nota fiscal”, campo desabilitado para edição.
+        - Campo Tipo de nota fiscal: Usuário poderá selecionar seguintes modelos: 1A; 1; 55; 4. Ao selecionar modelo 55 abrirá campo Chave NFe(ex.: entrada de notas). OBS.: Essa informação constará ao escriturar nota em movimentações (campo ficará bloqueado para edição).
+        - Conta débito: Não deve ser exibido o campo de conta débito para as operações que possuem vínculo também com a funcionalidade de 'pedido de venda' conforme mostra no banco de dados. Observação: Esse campo conta débito é utilizado no lançamento de estoque dos produtos o qual buscará conta configurada em contábil dentro do cadastro do produto (operacional > cadastro > produto).
+    Produtos
+        - validar epc
+            inserção manual
+            importaçao - Caso copie o cole os códigos para a planilha, verifique se a formatação das colunas não foi perdida, a coluna EPC deve possuir formato Texto.
+        - Inserir produto manualmente 
+            validar modal de impostos ao selecionar produto
+            validar alterar operação de um produto especifico
+        - Inserir produtos por arquivo
+            validar download do erro
+            validar importação de itens por arquivo exel 
+            validar importação de itens por txt
+            Validar editar impostos do produto
+            validar alterar operação de um produto especifico
+        - validar impostos 
+            · IPI nem sempre deve ser exibido, apenas quando a empresa for contribuinte de IPI.
+            · ICMS ST aparecerá quando operação for de substituição tributária, o qual abrirá mais campos para atender todas as necessidades.   OBS.: Será mantido o padrão sem adicionar ‘pauta’ e ‘IVA’, pois o objetivo é o preenchimento manual. Nesse caso, a Base de cálculo é informado de forma monetária (R$ 0,00).
+            · Crédito SN: ICMS SN só aparecerá quando a empresa for do Regime do Simples Nacional.
+            · PIS/ COFINS só aparecerá quando a empresa for do Regime do Lucro Real ou Lucro Presumido.
+            · Valor de ICMS é obrigatório na legado para gerar saída de produtos, porém os campos vem vazios, ao preencher  com zeros é possível finalizar. Como melhoria os campos já vem com preenchimento padrão (R$ 0,00; 0,0%) pra poder finalizar o protocolo. Apenas na escritutação será necessário essas informações.
+            · Na rotina de Movimentações fiscais (em Fiscal) usuário tem a possibilidade na etapa 3 de deixar habilitado o toggle "Recalcular impostos automaticamente", o qual calcula a nota conforme a classificação fiscal está configurada. E caso desabilite calculará conforme a informação que adicionou manualmente na saída de produtos.
+            · Deve respeitar parâmetros de casas decimais preço de venda (padrão da rotina saídas)
+            · Deve respeitar parâmetros de entidade que movimenta produto sem saldo, com melhoria na mensagem. Informativo em vermelho: "A mercadoria XXXXX não possui saldo em estoque"
+            OBS CFOP não mostrará nessa tela mas buscará da classificação e será possível visualizar na etapa 4, conforme tópico 3.5 Passo 4 visão geral.
+    Visão geral 
+        - Deve exibir os detalhes da nota fiscal registrada (ex: layout similar saída – Devolução de compra NF legado / Operacional – entrada de notas):
+        - validarepc Na coluna quantidade apresentará o ícone para ‘Detalhar EPC’.
+    Pagamento
+        - validar operações que gerão provisão de contas a receber
+validar exclusão
+validar epc
